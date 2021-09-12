@@ -1,8 +1,23 @@
 const gameBoard = (() => {
     const getBoard = () => _board;
-    const _board = [['','',''],['','',''],['','','']]; //empty board
+    const _board = [['X','O','X'],['O','X','O'],['X','O','X']]; //empty board
+
+    const render = () => {
+        const boardDiv = document.querySelector('.tictactoe-board');
+
+        console.log('rendering board');
+        for(let i = 0; i < 3; i++) {
+            for(let j = 0; j < 3; j++) {
+                const div = document.createElement('div');
+                div.textContent = _board[i][j];
+                boardDiv.appendChild(div);
+                //console.log(_board[i][j]);
+            }
+        }
+    }
 
     return {
+        render,
         getBoard
     };
 })();
@@ -10,28 +25,13 @@ const gameBoard = (() => {
 const game = (() => {
     const init = () => {
         console.log('initialising game');
-        game.render();
+        const board = gameBoard.getBoard();
         const player1 = Player('p1', 'X');
         const player2 = Player('p2', 'O');
-        _cacheDom();
-        _bindEvents();
-    };
-    const render = () => {
-
-    };
-
-    const _cacheDom = () => {
-        const game = document.querySelector('.tictactoe-game');
-        const board = game.querySelector('.tictactoe-board');
-
-    };
-    const _bindEvents = () => {
-        console.log('binding events');
     };
 
     return {
         init,
-        render
     };
 })();
 
