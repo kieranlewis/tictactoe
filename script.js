@@ -10,8 +10,8 @@ const gameBoard = (() => {
             for(let j = 0; j < 3; j++) {
                 const div = document.createElement('div');
                 div.textContent = _board[i][j];
+                div.setAttribute('class', 'grid-item');
                 boardDiv.appendChild(div);
-                //console.log(_board[i][j]);
             }
         }
     }
