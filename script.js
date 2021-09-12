@@ -1,6 +1,6 @@
 const gameBoard = (() => {
     const getBoard = () => _board;
-    const _board = [['X','O','X'],['O','X','O'],['X','O','X']]; //empty board
+    const _board = [['X','',''],['','',''],['','','']]; //empty board
 
     const render = () => {
         const boardDiv = document.querySelector('.tictactoe-board');
