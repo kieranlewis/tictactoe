@@ -1,24 +1,37 @@
 const gameBoard = (() => {
-    const board = [['','',''],['','',''],['','','']]; //empty board
-    const render = () => {
-        console.log('rendering board');
-    };
+    const getBoard = () => _board;
+    const _board = [['','',''],['','',''],['','','']]; //empty board
 
     return {
-        render,
+        getBoard
     };
 })();
 
 const game = (() => {
     const init = () => {
         console.log('initialising game');
-        gameBoard.render();
+        game.render();
         const player1 = Player('p1', 'X');
         const player2 = Player('p2', 'O');
+        _cacheDom();
+        _bindEvents();
+    };
+    const render = () => {
+
+    };
+
+    const _cacheDom = () => {
+        const game = document.querySelector('.tictactoe-game');
+        const board = game.querySelector('.tictactoe-board');
+
+    };
+    const _bindEvents = () => {
+        console.log('binding events');
     };
 
     return {
-        init
+        init,
+        render
     };
 })();
 
