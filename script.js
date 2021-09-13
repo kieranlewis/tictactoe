@@ -1,5 +1,5 @@
 const gameBoard = (() => {
-    const _board = [['','','X'],['','',''],['','','']]; //empty board
+    const _board = [['','',''],['','',''],['','','']]; //empty board
     const _boardDiv = document.querySelector('.tictactoe-board');
 
     const getBoard = () => _board;
@@ -14,37 +14,21 @@ const gameBoard = (() => {
                 div.textContent = _board[i][j];
                 div.setAttribute('class', 'grid-item');
                 div.setAttribute('data-index', `${i},${j}`);
-                div.addEventListener('click', _addMove);
+                div.addEventListener('click', game.checkLegalMove);
 
                 _boardDiv.appendChild(div);
             }
         }
     }
-
-    const _addMove = (e) => {
-        let index = e.target.getAttribute('data-index').split(',');
-        const position = _board[index[0]][index[1]];
-        _board[index[0]][index[1]] = 'X'
-        console.log(_board);
+    const addMove = (token, index) => {
+        _board[index[0]][index[1]] = token;
         render();
     }
 
     return {
         render,
-        getBoard
-    };
-})();
-
-const game = (() => {
-    const init = () => {
-        console.log('initialising game');
-        gameBoard.render();
-        const player1 = Player('p1', 'X');
-        const player2 = Player('p2', 'O');
-    };
-
-    return {
-        init,
+        getBoard,
+        addMove
     };
 })();
 
@@ -57,5 +41,33 @@ const Player = (name, token) => {
         getToken
     };
 };
+
+const game = (() => {
+    const player1 = Player('p1', 'X');
+    const player2 = Player('p2', 'O');
+    let player1Turn = true;
+
+    const init = () => {
+        gameBoard.render();
+    };
+    const checkLegalMove = (e) => {
+        const index = e.target.getAttribute('data-index').split(',');
+        const currentToken = gameBoard.getBoard()[index[0]][index[1]];
+
+        if(currentToken === '') {
+            addMove(index);
+            player1Turn = !player1Turn;
+        }
+    }    
+    const addMove = (index) => {
+        if(player1Turn) gameBoard.addMove('X', index);
+        else gameBoard.addMove('O', index);
+    }
+
+    return {
+        init,
+        checkLegalMove
+    };
+})();
 
 game.init();
