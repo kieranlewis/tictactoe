@@ -1,10 +1,11 @@
 const gameBoard = (() => {
-    const _board = [['','',''],['','',''],['','','']]; //empty board
+    const _board = [['','',''],
+                    ['','',''],
+                    ['','','']]; //empty board
     const _boardDiv = document.querySelector('.tictactoe-board');
 
     const getBoard = () => _board;
     const render = () => {
-        console.log('rendering board');
         _boardDiv.textContent = ''; //delete current board
 
         //loop through board and create div elements with the correct tokens
@@ -57,13 +58,34 @@ const game = (() => {
         if(currentToken === '') {
             if(player1Turn) gameBoard.addMove('X', index);
             else gameBoard.addMove('O', index);
+            checkWin();
             player1Turn = !player1Turn;
         }
-    }    
+    };
+    const checkWin = () => {
+        const currentBoard = gameBoard.getBoard();
+        const currentToken = player1Turn ? 'X' : 'O';
+
+        //check across
+        for (let row = 0; row < 3; row ++) {
+            if(currentBoard[row][0] == currentToken &&
+                currentBoard[row][1] == currentToken &&
+                currentBoard[row][2] == currentToken) {
+                console.log(`${currentToken} Wins!!!`);
+            }
+        }
+
+        //check down
+
+        //check diagonals
+
+        //check tie
+    }  
 
     return {
         init,
-        checkLegalMove
+        checkLegalMove, 
+        checkWin
     };
 })();
 
