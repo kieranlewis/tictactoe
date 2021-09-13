@@ -76,6 +76,13 @@ const game = (() => {
         }
 
         //check down
+        for(let col = 0; col < 3; col++) {
+            if(currentBoard[0][col] == currentToken &&
+                currentBoard[1][col] == currentToken &&
+                currentBoard[2][col] == currentToken) {
+                console.log(`${currentToken} Wins!!!`);
+            }
+        }
 
         //check diagonals
 
