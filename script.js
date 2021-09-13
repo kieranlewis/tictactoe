@@ -66,6 +66,13 @@ const game = (() => {
         const currentBoard = gameBoard.getBoard();
         const currentToken = player1Turn ? 'X' : 'O';
 
+        //check tie
+        if(currentBoard[0].indexOf("") == -1 && 
+            currentBoard[1].indexOf("") == -1 && 
+            currentBoard[2].indexOf("") == -1) {
+                console.log('Its a tie');
+        }
+
         //check across
         for (let row = 0; row < 3; row ++) {
             if(currentBoard[row][0] == currentToken &&
@@ -86,7 +93,6 @@ const game = (() => {
 
         //check diagonals
 
-        //check tie
     }  
 
     return {
