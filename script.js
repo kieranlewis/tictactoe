@@ -78,7 +78,7 @@ const game = (() => {
             if(currentBoard[row][0] == currentToken &&
                 currentBoard[row][1] == currentToken &&
                 currentBoard[row][2] == currentToken) {
-                console.log(`${currentToken} Wins!!!`);
+                    console.log(`${currentToken} Wins!!!`);
             }
         }
 
@@ -87,12 +87,23 @@ const game = (() => {
             if(currentBoard[0][col] == currentToken &&
                 currentBoard[1][col] == currentToken &&
                 currentBoard[2][col] == currentToken) {
-                console.log(`${currentToken} Wins!!!`);
+                    console.log(`${currentToken} Wins!!!`);
             }
         }
 
-        //check diagonals
+        //check left to right diagonal
+        if(currentBoard[0][0] == currentToken &&
+            currentBoard[1][1] == currentToken &&
+            currentBoard[2][2] == currentToken) {
+                console.log(`${currentToken} Wins!!!`);
+        }
 
+        //check right to left diagonal
+        if(currentBoard[2][0] == currentToken &&
+            currentBoard[1][1] == currentToken &&
+            currentBoard[0][2] == currentToken) {
+                console.log(`${currentToken} Wins!!!`);
+        }
     }  
 
     return {
