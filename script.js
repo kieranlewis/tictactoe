@@ -55,14 +55,11 @@ const game = (() => {
         const currentToken = gameBoard.getBoard()[index[0]][index[1]];
 
         if(currentToken === '') {
-            addMove(index);
+            if(player1Turn) gameBoard.addMove('X', index);
+            else gameBoard.addMove('O', index);
             player1Turn = !player1Turn;
         }
     }    
-    const addMove = (index) => {
-        if(player1Turn) gameBoard.addMove('X', index);
-        else gameBoard.addMove('O', index);
-    }
 
     return {
         init,
