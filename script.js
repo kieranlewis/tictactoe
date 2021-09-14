@@ -89,6 +89,8 @@ const game = (() => {
                 player1Name.readOnly = false;
                 player2Name.readOnly = false;
                 congratulations.appendChild(message);
+                const divs = document.querySelectorAll('.grid-item');
+                [...divs].forEach(div => div.removeEventListener('click', checkLegalMove));
             }
 
             player1Turn = !player1Turn;
@@ -104,6 +106,7 @@ const game = (() => {
             if(currentBoard[row][0] == currentToken &&
                 currentBoard[row][1] == currentToken &&
                 currentBoard[row][2] == currentToken) {
+                    console.log(row);
                     return currentToken;
             }
         }
