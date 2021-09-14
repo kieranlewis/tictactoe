@@ -40,17 +40,27 @@ const gameBoard = (() => {
 })();
 
 const Player = (name, token) => {
-    const getName = () => name;
-    const getToken = () => token;
+    const getName = () => _name;
+    const getToken = () => _token;
+    const setName = (name) => _name = name;
+
+    let _name = name;
+    const _token = name;
 
     return {
         getName,
-        getToken
+        getToken,
+        setName
     };
 };
 
 const game = (() => {
     const init = () => {
+        const player1Name = document.querySelector('[name="player1Name"]').value;
+        const player2Name = document.querySelector('[name="player1Name"]').value;
+        player1.setName(player1Name);
+        player2.setName(player2Name);
+
         gameBoard.clearBoard();
         gameBoard.render();
     };
@@ -62,9 +72,9 @@ const game = (() => {
             if(player1Turn) gameBoard.addMove('X', index);
             else gameBoard.addMove('O', index);
 
-            if(_checkWin()) {
-                
-            }
+            if(_checkWin() == 'tie') console.log("TIE GAME!");
+            else if(_checkWin() == 'X') console.log(player1.getName() + ' WINS!');
+            else if(_checkWin() == 'O') console.log(player2.getName() + ' WINS!');
             player1Turn = !player1Turn;
         }
     };
@@ -77,8 +87,7 @@ const game = (() => {
         if(currentBoard[0].indexOf("") == -1 && 
             currentBoard[1].indexOf("") == -1 && 
             currentBoard[2].indexOf("") == -1) {
-                console.log('Its a tie');
-                return true;
+                return 'tie';
         }
 
         //check across
@@ -86,8 +95,7 @@ const game = (() => {
             if(currentBoard[row][0] == currentToken &&
                 currentBoard[row][1] == currentToken &&
                 currentBoard[row][2] == currentToken) {
-                    console.log(`${currentToken} Wins!!!`);
-                    return true;
+                    return currentToken;
             }
         }
 
@@ -96,8 +104,7 @@ const game = (() => {
             if(currentBoard[0][col] == currentToken &&
                 currentBoard[1][col] == currentToken &&
                 currentBoard[2][col] == currentToken) {
-                    console.log(`${currentToken} Wins!!!`);
-                    return true;
+                    return currentToken;
             }
         }
 
@@ -105,19 +112,16 @@ const game = (() => {
         if(currentBoard[0][0] == currentToken &&
             currentBoard[1][1] == currentToken &&
             currentBoard[2][2] == currentToken) {
-                console.log(`${currentToken} Wins!!!`);
-                return true;
+                return currentToken;
         }
 
         //check right to left diagonal
         if(currentBoard[2][0] == currentToken &&
             currentBoard[1][1] == currentToken &&
             currentBoard[0][2] == currentToken) {
-                console.log(`${currentToken} Wins!!!`);
-                return true;
+                return currentToken;
         }
     }  
-
     const player1 = Player('p1', 'X');
     const player2 = Player('p2', 'O');
     let player1Turn = true;
