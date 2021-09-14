@@ -57,12 +57,13 @@ const Player = (name, token) => {
 const game = (() => {
     const init = () => {
         const player1Name = document.querySelector('[name="player1Name"]').value;
-        const player2Name = document.querySelector('[name="player1Name"]').value;
+        const player2Name = document.querySelector('[name="player2Name"]').value;
         player1.setName(player1Name);
         player2.setName(player2Name);
 
         gameBoard.clearBoard();
         gameBoard.render();
+        player1Turn = true;
     };
     const checkLegalMove = (e) => {
         const index = e.target.getAttribute('data-index').split(',');
@@ -72,9 +73,23 @@ const game = (() => {
             if(player1Turn) gameBoard.addMove('X', index);
             else gameBoard.addMove('O', index);
 
-            if(_checkWin() == 'tie') console.log("TIE GAME!");
-            else if(_checkWin() == 'X') console.log(player1.getName() + ' WINS!');
-            else if(_checkWin() == 'O') console.log(player2.getName() + ' WINS!');
+            const check = _checkWin();
+            if(check) {
+                console.log(check)
+                console.log(player1.getName(), player2.getName());
+                const message = document.createElement('p');
+
+                if(_checkWin() == 'tie') {
+                    message.textContent = "TIE GAME!"
+                } else if(_checkWin() == 'X') {
+                    message.textContent = player1.getName() + ' WINS!';
+                } else if(_checkWin() == 'O') {
+                    message.textContent = player2.getName() + ' WINS!';
+                }
+                
+                congratulations.appendChild(message);
+            }
+
             player1Turn = !player1Turn;
         }
     };
@@ -82,13 +97,6 @@ const game = (() => {
     const _checkWin = () => {
         const currentBoard = gameBoard.getBoard();
         const currentToken = player1Turn ? 'X' : 'O';
-
-        //check tie
-        if(currentBoard[0].indexOf("") == -1 && 
-            currentBoard[1].indexOf("") == -1 && 
-            currentBoard[2].indexOf("") == -1) {
-                return 'tie';
-        }
 
         //check across
         for (let row = 0; row < 3; row ++) {
@@ -121,6 +129,13 @@ const game = (() => {
             currentBoard[0][2] == currentToken) {
                 return currentToken;
         }
+
+        //check tie
+        if(currentBoard[0].indexOf("") == -1 && 
+            currentBoard[1].indexOf("") == -1 && 
+            currentBoard[2].indexOf("") == -1) {
+                return 'tie';
+        }
     }  
     const player1 = Player('p1', 'X');
     const player2 = Player('p2', 'O');
@@ -128,6 +143,8 @@ const game = (() => {
 
     const startButton = document.querySelector('.btn-start');
     startButton.addEventListener('click', init);
+
+    const congratulations = document.querySelector('.congratulations');
 
     return {
         init,
