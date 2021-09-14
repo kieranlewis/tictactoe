@@ -15,3 +15,7 @@
     font-size: var(--token-size);
     text-align: center;
 }
+
+.win {
+    color: blue
+}

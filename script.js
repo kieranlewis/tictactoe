@@ -1,9 +1,4 @@
 const gameBoard = (() => {
-    let _board = [['','',''],
-                    ['','',''],
-                    ['','','']]; //empty board
-    const _boardDiv = document.querySelector('.tictactoe-board');
-
     const getBoard = () => _board;
     const render = () => {
         _boardDiv.textContent = ''; //delete current board
@@ -30,12 +25,26 @@ const gameBoard = (() => {
                   ['','',''],
                   ['','','']];
     }
+    const displayRow = (row) => {   
+        console.log(`Row ${row} won`);
+        
+        for(let i = 0; i < 3; i++) {
+            const rowDiv = document.querySelector(`[data-index='${row},${i}']`);
+            rowDiv.classList.add('win');
+        }
+    }
+
+    let _board = [['','',''],
+    ['','',''],
+    ['','','']]; //empty board
+    const _boardDiv = document.querySelector('.tictactoe-board');
 
     return {
         render,
         getBoard,
         addMove,
-        clearBoard
+        clearBoard,
+        displayRow
     };
 })();
 
@@ -106,7 +115,7 @@ const game = (() => {
             if(currentBoard[row][0] == currentToken &&
                 currentBoard[row][1] == currentToken &&
                 currentBoard[row][2] == currentToken) {
-                    console.log(row);
+                    gameBoard.displayRow(row);
                     return currentToken;
             }
         }
@@ -141,6 +150,7 @@ const game = (() => {
                 return 'tie';
         }
     }  
+
     const player1 = Player('p1', 'X');
     const player2 = Player('p2', 'O');
     let player1Turn = true;
