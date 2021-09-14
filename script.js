@@ -1,5 +1,5 @@
 const gameBoard = (() => {
-    const _board = [['','',''],
+    let _board = [['','',''],
                     ['','',''],
                     ['','','']]; //empty board
     const _boardDiv = document.querySelector('.tictactoe-board');
@@ -25,11 +25,17 @@ const gameBoard = (() => {
         _board[index[0]][index[1]] = token;
         render();
     }
+    const clearBoard = () => {
+        _board = [['','',''],
+                  ['','',''],
+                  ['','','']];
+    }
 
     return {
         render,
         getBoard,
-        addMove
+        addMove,
+        clearBoard
     };
 })();
 
@@ -44,11 +50,8 @@ const Player = (name, token) => {
 };
 
 const game = (() => {
-    const player1 = Player('p1', 'X');
-    const player2 = Player('p2', 'O');
-    let player1Turn = true;
-
     const init = () => {
+        gameBoard.clearBoard();
         gameBoard.render();
     };
     const checkLegalMove = (e) => {
@@ -58,11 +61,15 @@ const game = (() => {
         if(currentToken === '') {
             if(player1Turn) gameBoard.addMove('X', index);
             else gameBoard.addMove('O', index);
-            checkWin();
+
+            if(_checkWin()) {
+                
+            }
             player1Turn = !player1Turn;
         }
     };
-    const checkWin = () => {
+
+    const _checkWin = () => {
         const currentBoard = gameBoard.getBoard();
         const currentToken = player1Turn ? 'X' : 'O';
 
@@ -71,6 +78,7 @@ const game = (() => {
             currentBoard[1].indexOf("") == -1 && 
             currentBoard[2].indexOf("") == -1) {
                 console.log('Its a tie');
+                return true;
         }
 
         //check across
@@ -79,6 +87,7 @@ const game = (() => {
                 currentBoard[row][1] == currentToken &&
                 currentBoard[row][2] == currentToken) {
                     console.log(`${currentToken} Wins!!!`);
+                    return true;
             }
         }
 
@@ -88,6 +97,7 @@ const game = (() => {
                 currentBoard[1][col] == currentToken &&
                 currentBoard[2][col] == currentToken) {
                     console.log(`${currentToken} Wins!!!`);
+                    return true;
             }
         }
 
@@ -96,6 +106,7 @@ const game = (() => {
             currentBoard[1][1] == currentToken &&
             currentBoard[2][2] == currentToken) {
                 console.log(`${currentToken} Wins!!!`);
+                return true;
         }
 
         //check right to left diagonal
@@ -103,14 +114,21 @@ const game = (() => {
             currentBoard[1][1] == currentToken &&
             currentBoard[0][2] == currentToken) {
                 console.log(`${currentToken} Wins!!!`);
+                return true;
         }
     }  
 
+    const player1 = Player('p1', 'X');
+    const player2 = Player('p2', 'O');
+    let player1Turn = true;
+
+    const startButton = document.querySelector('.btn-start');
+    startButton.addEventListener('click', init);
+
     return {
         init,
-        checkLegalMove, 
-        checkWin
+        checkLegalMove
     };
 })();
 
-game.init();
+//game.init();
