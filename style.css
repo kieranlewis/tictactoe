@@ -16,6 +16,13 @@
     text-align: center;
 }
 
-.win {
-    color: blue
+.win > span{
+    color: blue;
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
 }

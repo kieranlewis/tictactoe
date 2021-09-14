@@ -7,7 +7,7 @@ const gameBoard = (() => {
         for(let i = 0; i < 3; i++) {
             for(let j = 0; j < 3; j++) {
                 const div = document.createElement('div');
-                div.textContent = _board[i][j];
+                div.innerHTML = `<span>${_board[i][j]}</span>`;
                 div.setAttribute('class', 'grid-item');
                 div.setAttribute('data-index', `${i},${j}`);
                 div.addEventListener('click', game.checkLegalMove);
@@ -43,7 +43,6 @@ const gameBoard = (() => {
             div.classList.add('win');
         })
     }
-
     const displayCol = (col) => {   
         for(let i = 0; i < 3; i++) {
             const colDiv = document.querySelector(`[data-index='${i},${col}']`);
@@ -52,8 +51,8 @@ const gameBoard = (() => {
     }
 
     let _board = [['','',''],
-    ['','',''],
-    ['','','']]; //empty board
+                  ['','',''],
+                  ['','','']]; //empty board
     const _boardDiv = document.querySelector('.tictactoe-board');
 
     return {
