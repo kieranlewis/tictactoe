@@ -26,11 +26,28 @@ const gameBoard = (() => {
                   ['','','']];
     }
     const displayRow = (row) => {   
-        console.log(`Row ${row} won`);
-        
         for(let i = 0; i < 3; i++) {
             const rowDiv = document.querySelector(`[data-index='${row},${i}']`);
             rowDiv.classList.add('win');
+        }
+    }
+    const displayDiag = (direction) => {
+        let indicies;
+        if(direction == 'back') {
+            indicies = ['0,0', '1,1', '2,2'];
+        } else {
+            indicies = ['2,0', '1,1', '0,2'];
+        }
+        indicies.forEach(index => {
+            const div = document.querySelector(`[data-index='${index.split(",")[0]},${index.split(",")[1]}']`);
+            div.classList.add('win');
+        })
+    }
+
+    const displayCol = (col) => {   
+        for(let i = 0; i < 3; i++) {
+            const colDiv = document.querySelector(`[data-index='${i},${col}']`);
+            colDiv.classList.add('win');
         }
     }
 
@@ -44,7 +61,9 @@ const gameBoard = (() => {
         getBoard,
         addMove,
         clearBoard,
-        displayRow
+        displayRow,
+        displayCol,
+        displayDiag
     };
 })();
 
@@ -125,6 +144,7 @@ const game = (() => {
             if(currentBoard[0][col] == currentToken &&
                 currentBoard[1][col] == currentToken &&
                 currentBoard[2][col] == currentToken) {
+                    gameBoard.displayCol(col);
                     return currentToken;
             }
         }
@@ -133,6 +153,7 @@ const game = (() => {
         if(currentBoard[0][0] == currentToken &&
             currentBoard[1][1] == currentToken &&
             currentBoard[2][2] == currentToken) {
+                gameBoard.displayDiag('back');
                 return currentToken;
         }
 
@@ -140,6 +161,7 @@ const game = (() => {
         if(currentBoard[2][0] == currentToken &&
             currentBoard[1][1] == currentToken &&
             currentBoard[0][2] == currentToken) {
+                gameBoard.displayDiag('forward');
                 return currentToken;
         }
 
