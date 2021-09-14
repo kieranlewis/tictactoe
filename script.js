@@ -56,14 +56,15 @@ const Player = (name, token) => {
 
 const game = (() => {
     const init = () => {
-        const player1Name = document.querySelector('[name="player1Name"]').value;
-        const player2Name = document.querySelector('[name="player2Name"]').value;
-        player1.setName(player1Name);
-        player2.setName(player2Name);
+        player1.setName(player1Name.value || 'Player 1');
+        player2.setName(player2Name.value || 'Player 2');
+        player1Name.readOnly = true;
+        player2Name.readOnly = true;
 
         gameBoard.clearBoard();
         gameBoard.render();
         player1Turn = true;
+        congratulations.textContent = '';
     };
     const checkLegalMove = (e) => {
         const index = e.target.getAttribute('data-index').split(',');
@@ -75,8 +76,6 @@ const game = (() => {
 
             const check = _checkWin();
             if(check) {
-                console.log(check)
-                console.log(player1.getName(), player2.getName());
                 const message = document.createElement('p');
 
                 if(_checkWin() == 'tie') {
@@ -86,7 +85,9 @@ const game = (() => {
                 } else if(_checkWin() == 'O') {
                     message.textContent = player2.getName() + ' WINS!';
                 }
-                
+
+                player1Name.readOnly = false;
+                player2Name.readOnly = false;
                 congratulations.appendChild(message);
             }
 
@@ -141,6 +142,9 @@ const game = (() => {
     const player2 = Player('p2', 'O');
     let player1Turn = true;
 
+    const player1Name = document.querySelector('[name="player1Name"]');
+    const player2Name = document.querySelector('[name="player2Name"]');
+
     const startButton = document.querySelector('.btn-start');
     startButton.addEventListener('click', init);
 
@@ -151,5 +155,3 @@ const game = (() => {
         checkLegalMove
     };
 })();
-
-//game.init();
