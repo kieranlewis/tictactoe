@@ -107,7 +107,8 @@ const game = (() => {
         player2Name.readOnly = true;
         player1Score.textContent = player1.getWins();
         player2Score.textContent = player2.getWins();
-        
+        ties.textContent = tieScore;
+
         gameBoard.clearBoard();
         gameBoard.render();
         player1Turn = true;
@@ -123,12 +124,13 @@ const game = (() => {
             const check = _checkWin();
             if(check) {
                 if(_checkWin() == 'tie') {
-                    //
+                    tieScore++;
                 } 
                 else if(_checkWin() == 'X') player1.incrementWin();
                 else if(_checkWin() == 'O') player2.incrementWin();
                 player1Score.textContent = player1.getWins();
                 player2Score.textContent = player2.getWins();
+                ties.textContent = tieScore;
 
                 player1Name.readOnly = false;
                 player2Name.readOnly = false;
@@ -191,6 +193,7 @@ const game = (() => {
     const player1 = Player('p1', 'X', 0);
     const player2 = Player('p2', 'O', 0);
     let player1Turn = true;
+    let tieScore = 0;
 
     const player1Name = document.querySelector('[name="player1Name"]');
     const player2Name = document.querySelector('[name="player2Name"]');
@@ -200,6 +203,7 @@ const game = (() => {
 
     const player1Score = document.querySelector('#player1-score');
     const player2Score = document.querySelector('#player2-score');
+    const ties = document.querySelector('#number-of-ties');
 
     return {
         init,
