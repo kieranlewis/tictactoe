@@ -202,3 +202,5 @@ const game = (() => {
         checkLegalMove
     };
 })();
+
+game.init();

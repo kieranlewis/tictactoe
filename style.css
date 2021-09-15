@@ -7,14 +7,20 @@ html {
     color: white
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .tictactoe-board {
     display: grid;
     grid-template-columns: repeat(3, var(--token-size));
 }
 
 .grid-item {
-
-    color: red;
+    color: white;
     height: var(--token-size);
     width: var(--token-size);
     font-size: var(--token-size);
