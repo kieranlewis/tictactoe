@@ -105,11 +105,12 @@ const game = (() => {
         player2.setName(player2Name.value || 'Player 2');
         player1Name.readOnly = true;
         player2Name.readOnly = true;
-
+        player1Score.textContent = player1.getWins();
+        player2Score.textContent = player2.getWins();
+        
         gameBoard.clearBoard();
         gameBoard.render();
         player1Turn = true;
-        congratulations.textContent = '';
     };
     const checkLegalMove = (e) => {
         const index = e.target.getAttribute('data-index').split(',');
@@ -121,21 +122,16 @@ const game = (() => {
 
             const check = _checkWin();
             if(check) {
-                const message = document.createElement('p');
-
                 if(_checkWin() == 'tie') {
-                    message.textContent = "TIE GAME!"
-                } else if(_checkWin() == 'X') {
-                    message.textContent = player1.getName() + ' WINS!';
-                    player1.incrementWin();
-                } else if(_checkWin() == 'O') {
-                    message.textContent = player2.getName() + ' WINS!';
-                    player2.incrementWin();
-                }
+                    //
+                } 
+                else if(_checkWin() == 'X') player1.incrementWin();
+                else if(_checkWin() == 'O') player2.incrementWin();
+                player1Score.textContent = player1.getWins();
+                player2Score.textContent = player2.getWins();
 
                 player1Name.readOnly = false;
                 player2Name.readOnly = false;
-                congratulations.appendChild(message);
                 const divs = document.querySelectorAll('.grid-item');
                 [...divs].forEach(div => div.removeEventListener('click', checkLegalMove));
             }
@@ -202,7 +198,8 @@ const game = (() => {
     const startButton = document.querySelector('.btn-start');
     startButton.addEventListener('click', init);
 
-    const congratulations = document.querySelector('.congratulations');
+    const player1Score = document.querySelector('#player1-score');
+    const player2Score = document.querySelector('#player2-score');
 
     return {
         init,

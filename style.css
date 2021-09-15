@@ -36,6 +36,39 @@ html {
     animation: blinker 1s linear infinite;
 }
 
+.score {
+    display: flex;
+    width: 60vh;
+    justify-content: space-evenly;
+}
+
+.setup {
+    display: flex;
+    margin-top: 20px;
+}
+
+label {
+    text-align: center;
+}
+
+input {
+    display: none
+}
+
+#player1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 100px;
+}
+
+#player2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 @keyframes blinker {
     50% {
         opacity: 0;
