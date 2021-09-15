@@ -24,19 +24,15 @@ h1 {
 .tictactoe-board {
     display: grid;
     grid-template-columns: repeat(3, var(--token-size));
-    height: 60vh;
-    width: 60vh;
 }
 
 .grid-item {
     color: white;
-    height: var(--token-size);
-    width: var(--token-size);
+    height: 128px;
+    width: 128px;
     font-size: var(--token-size);
     font-family: 'Raleway', sans-serif;
     text-align: center;
-    vertical-align: middle;
-    line-height: 20vh;
 }
 
 .win > span{
