@@ -7,6 +7,11 @@ html {
     color: white
 }
 
+h1 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 40px;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -28,11 +33,13 @@ html {
     height: var(--token-size);
     width: var(--token-size);
     font-size: var(--token-size);
+    font-family: 'Raleway', sans-serif;
     text-align: center;
+    vertical-align: middle;
+    line-height: 20vh;
 }
 
 .win > span{
-    color: blue;
     animation: blinker 1s linear infinite;
 }
 
@@ -45,10 +52,8 @@ html {
 .setup {
     display: flex;
     margin-top: 20px;
-}
-
-label {
-    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
 }
 
 input {
@@ -73,6 +78,12 @@ input {
     flex-direction: column;
     align-items: center;
     margin-right: 100px;
+}
+
+button {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    margin-top: 10px;
 }
 
 
