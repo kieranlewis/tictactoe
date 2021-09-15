@@ -1,5 +1,5 @@
 :root {
-    --token-size: 64px;
+    --token-size: 128px;
 }
 
 html {
@@ -12,11 +12,15 @@ html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100vh;
+    border: 1px solid white;
 }
 
 .tictactoe-board {
     display: grid;
     grid-template-columns: repeat(3, var(--token-size));
+    height: 60vh;
+    width: 60vh;
 }
 
 .grid-item {

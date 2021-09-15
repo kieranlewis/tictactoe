@@ -79,18 +79,23 @@ const gameBoard = (() => {
     };
 })();
 
-const Player = (name, token) => {
+const Player = (name, token, wins) => {
     const getName = () => _name;
     const getToken = () => _token;
+    const getWins = () => _wins;
     const setName = (name) => _name = name;
+    const incrementWin = () => _wins++;
 
     let _name = name;
     const _token = name;
+    let _wins = wins;
 
     return {
         getName,
         getToken,
-        setName
+        getWins,
+        setName,
+        incrementWin
     };
 };
 
@@ -122,8 +127,10 @@ const game = (() => {
                     message.textContent = "TIE GAME!"
                 } else if(_checkWin() == 'X') {
                     message.textContent = player1.getName() + ' WINS!';
+                    player1.incrementWin();
                 } else if(_checkWin() == 'O') {
                     message.textContent = player2.getName() + ' WINS!';
+                    player2.incrementWin();
                 }
 
                 player1Name.readOnly = false;
@@ -185,8 +192,8 @@ const game = (() => {
         }
     }  
 
-    const player1 = Player('p1', 'X');
-    const player2 = Player('p2', 'O');
+    const player1 = Player('p1', 'X', 0);
+    const player2 = Player('p2', 'O', 0);
     let player1Turn = true;
 
     const player1Name = document.querySelector('[name="player1Name"]');
