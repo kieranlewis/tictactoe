@@ -2,13 +2,18 @@
     --token-size: 64px;
 }
 
+html {
+    background-color: black;
+    color: white
+}
+
 .tictactoe-board {
     display: grid;
     grid-template-columns: repeat(3, var(--token-size));
 }
 
 .grid-item {
-    border: 1px solid black;
+
     color: red;
     height: var(--token-size);
     width: var(--token-size);

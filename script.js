@@ -11,6 +11,7 @@ const gameBoard = (() => {
                 div.setAttribute('class', 'grid-item');
                 div.setAttribute('data-index', `${i},${j}`);
                 div.addEventListener('click', game.checkLegalMove);
+                _setBorder(div, i, j);
 
                 _boardDiv.appendChild(div);
             }
@@ -48,6 +49,18 @@ const gameBoard = (() => {
             const colDiv = document.querySelector(`[data-index='${i},${col}']`);
             colDiv.classList.add('win');
         }
+    }
+    const _setBorder = (div, row, col) => {
+        if(row == 1 && col == 1) div.style.border = '1px solid white';
+        else if(row == 0 && col == 1 || row == 2 && col == 1) {
+            div.style.borderLeft = '1px solid white';
+            div.style.borderRight = '1px solid white';
+        }
+        else if(row == 1 && col == 0 || row == 1 && col == 2) {
+            div.style.borderTop = '1px solid white';
+            div.style.borderBottom = '1px solid white';
+        }
+        
     }
 
     let _board = [['','',''],
